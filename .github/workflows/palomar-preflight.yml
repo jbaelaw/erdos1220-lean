@@ -15,7 +15,7 @@ jobs:
       repository: ${{ github.repository }}
       commit: ${{ github.sha }}
       pipeline_commit: a59f25bd8a66bf6faf3a4f4260d412989c0185ea
-      request_id: preflight-${{ github.run_id }}-${{ github.run_attempt }}
+      request_id: erdos1220ci1
       mode: full
       execution_profile: palomar-standard-v1
       options: '{"comparator_config_path":"comparator.json","authorization_relationship":"I am a responsible author or maintainer"}'
