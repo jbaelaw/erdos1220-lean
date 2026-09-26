@@ -1,0 +1,87 @@
+# CI for the Erdős #1220 comparator challenge, modelled on elliotglazer/erdos501's
+# .github/workflows/ci.yml (Apache-2.0).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: lake build + axiom audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build (Mathlib from cache, everything else from source)
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Build the comparator modules
+        run: lake build Challenge Solution
+
+      - name: Challenge.lean is in sync with the library's statement modules
+        run: python3 sync_challenge.py --check
+
+      - name: Axiom audit of the comparator targets
+        run: lake env lean AxiomAudit.lean | tee axioms.txt
+
+      - name: Fail if a target listed in comparator.json depends on sorryAx
+        run: |
+          python3 - <<'PY'
+          import json, re, sys
+          txt = open("axioms.txt").read()
+          names = json.load(open("comparator.json"))["theorem_names"]
+          bad = []
+          for name in names:
+              m = re.search(r"'%s' depends on axioms: \[([^\]]*)\]" % re.escape(name), txt)
+              if not m:
+                  bad.append((name, "not found in audit output"))
+              elif set(a.strip() for a in m.group(1).split(",")) - {"propext", "Classical.choice", "Quot.sound"}:
+                  bad.append((name, m.group(1)))
+          for b in bad:
+              print("NOT CLOSED:", *b)
+          sys.exit(1 if bad else 0)
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: axiom-audit
+          path: axioms.txt
+
+  comparator:
+    name: comparator (comparator.json, NanoDa enabled)
+    runs-on: ubuntu-latest
+    needs: build
+    # landrun needs Landlock — available on GitHub's Ubuntu runners.
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build project (populates .lake so comparator only rebuilds Challenge/Solution)
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-mathlib-cache: true
+          build: true
+          test: false
+          lint: false
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install landrun, lean4export, comparator (erdos501 pins)
+        run: |
+          bash scripts/install-comparator-tools.sh "$GITHUB_WORKSPACE/.tools"
+          bash scripts/install-nanoda.sh "$GITHUB_WORKSPACE/.tools"
+          echo "$GITHUB_WORKSPACE/.tools/bin" >> "$GITHUB_PATH"
+
+      - name: Judge the challenge (comparator.json — both targets)
+        run: bash scripts/run-comparator.sh "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/.tools" comparator.json

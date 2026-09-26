@@ -1,0 +1,80 @@
+import Erdos1220
+import Erdos1220.Amalgamation
+import Erdos1220.AncestralEvents
+import Erdos1220.Ancestry
+import Erdos1220.BasicConditions
+import Erdos1220.BethWitness
+import Erdos1220.BlockInitial
+import Erdos1220.BlockPreserving
+import Erdos1220.BlockPreservingClosure
+import Erdos1220.BlueOrigin
+import Erdos1220.CliqueCountable
+import Erdos1220.ConditionAlgebra
+import Erdos1220.Copying
+import Erdos1220.DeltaSystem
+import Erdos1220.EdgeOrigin
+import Erdos1220.FiniteCover
+import Erdos1220.FiniteFreeSet
+import Erdos1220.Flip
+import Erdos1220.Folding
+import Erdos1220.History
+import Erdos1220.HistoryBlueprint
+import Erdos1220.HistoryConstruction
+import Erdos1220.HistoryLimit
+import Erdos1220.HistorySplice
+import Erdos1220.IsoAmalgam
+import Erdos1220.PureExtension
+import Erdos1220.RedCore
+import Erdos1220.Relabel
+import Erdos1220.SwapExtension
+import Erdos1220.VertexDensity
+import Erdos1220.WeakOrder
+import Erdos1220Full.AllMem
+import Erdos1220Full.AntichainHP
+import Erdos1220Full.Arrow1220
+import Erdos1220Full.ArrowAssembly
+import Erdos1220Full.ArrowFinal
+import Erdos1220Full.Assembly1220
+import Erdos1220Full.BlueExclusion
+import Erdos1220Full.BlueFinal1220
+import Erdos1220Full.Bridge1220
+import Erdos1220Full.CAlgChain
+import Erdos1220Full.Card1220
+import Erdos1220Full.CardPreserve
+import Erdos1220Full.CardPreserveSem
+import Erdos1220Full.ChainPreservation
+import Erdos1220Full.CountablePreservation
+import Erdos1220Full.CoverForcing
+import Erdos1220Full.Distributive
+import Erdos1220Full.Faithful1220
+import Erdos1220Full.GCHFoundation
+import Erdos1220Full.GenericColouring
+import Erdos1220Full.GlueCAlg
+import Erdos1220Full.HistoryForcing
+import Erdos1220Full.HistoryForcingSmall
+import Erdos1220Full.Hyp1220
+import Erdos1220Full.Instance1220
+import Erdos1220Full.InstanceFacts
+import Erdos1220Full.ModelFoundation
+import Erdos1220Full.PosetAlgebra
+import Erdos1220Full.Realize1220
+import Erdos1220Full.Red1220
+import Erdos1220Full.RedExclusion
+import Erdos1220Full.Semantics1220
+import Erdos1220Full.SentenceF
+import Erdos1220Full.ShortFunctions
+import Erdos1220Full.Statement1220
+import Erdos1220Full.WitnessSetup
+import Erdos1220Full.Cof1220
+import Erdos1220Full.CofClause
+import Erdos1220Full.CofInstance1220
+import Erdos1220Full.HypForced
+import Erdos1220Full.HypInstance1220
+import Erdos1220Full.Independence1220
+
+/-!
+# Audit root
+
+Imports every module of `Erdos1220` and `Erdos1220Full` except the audit tooling itself
+(`AuditCmd`, `AxiomAudit`, this file); `Erdos1220.lean` is imported as well.
+-/

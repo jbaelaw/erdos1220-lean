@@ -1,0 +1,223 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml (v0.4) — metadata for the Lean 4 formalization of Erdős Problem #1220.
+# Modelled on elliotglazer/erdos501's formalization.yaml.  Palomar registry conventions
+# (https://palomar-registry.org/how-to-submit) are followed.  NOT YET SUBMITTED (see status.known_gaps: toolchain).
+
+version: "v0.4"
+
+project:
+  name: "Erdős Problem #1220 in Lean 4: the affirmative statement is not provable in ZFC"
+  authors:
+    - "Ji Ho Bae (JRTI)"
+  responsible_maintainers:
+    - "Ji Ho Bae"
+  license: "Apache-2.0"
+  description: >-
+    Erdős problem #1220 (erdosproblems.com/1220; Erdős–Hajnal 1971): let λ be a singular cardinal
+    such that both λ and cf(λ) are ℵ₀-inaccessible (μ^ℵ₀ < κ for all μ < κ); does
+    λ → (λ, ℵ₁)² hold?  This formalization settles the question as asked on erdosproblems.com
+    in the negative sense "not provable": ZFC does not prove that every such λ satisfies
+    λ → (λ, ℵ₁)² (erdos1220_not_provable : ¬ (ZFC ⊨ᵇ Erdos1220)), i.e. there is a model of ZFC
+    with a singular λ, λ and cf(λ) ℵ₀-inaccessible, and λ ↛ (λ, ℵ₁)².  Shelah and Stanley (Sh:258,
+    Ann. Pure Appl. Logic 36 (1987)) showed that a negative answer is consistent with ZFC.  This
+    project formalizes that consistency result: the comparator target
+    erdos1220_not_provable : ¬ (ZFC ⊨ᵇ Erdos1220) is stated for literally the same first-order
+    theory ZFC, language and ZFSet interpretation as elliotglazer/erdos501's comparator
+    challenge (imported from its statement module Erdos501.FOL.Statement), together with a
+    faithfulness theorem erdos1220_sentence_faithful: in Mathlib's ZFSet the sentence Erdos1220
+    holds iff the Mathlib-level statement Erdos1220.Problem1220 holds.  The witness is the
+    ground-model singular strong-limit cardinal λ = ℶ_{𝔠⁺} (cf λ = 𝔠⁺; λ and cf λ are
+    ℵ₀-inaccessible without any deep cardinal-arithmetic input), not ℵ_{𝔠⁺}.  The forcing is the
+    Shelah–Stanley §3 forcing, formalized as block-preserving, block-covering histories of basic
+    conditions (weak extension order), with the μ⁺-strategic closure (hence μ-distributivity) and
+    the (2^μ)⁺-chain condition proved in ZFC without GCH (Δ-system lemma for (2^μ)⁺ sets of size
+    ≤ μ, blueprint counting (2^μ)^μ = 2^μ).  In the Boolean-valued model of its regular-open
+    algebra (built with the Lean 4 port of Han–van Doorn's Flypitch vendored by erdos501) the
+    hypotheses on λ are preserved, the generic colouring of [λ]² has neither a red homogeneous
+    set of size λ nor a blue homogeneous set of size ℵ₁, and Flypitch's completeness theorem
+    turns this into a two-valued model of ZFC satisfying ¬Erdos1220.  Both targets are proved
+    from propext, Classical.choice and Quot.sound only and pass the Lean comparator.  Only the
+    negative direction is claimed: independence (consistency of a positive answer) is NOT
+    claimed.
+
+sources:
+  - title: "Unsolved problems in set theory"
+    authors: ["Paul Erdős", "András Hajnal"]
+    id: "Proc. Sympos. Pure Math. XIII, Part I (Axiomatic Set Theory), AMS 1971, 17–48"
+    type: paper
+    relationship: background
+    author_endorsement: "n/a"
+    note: "poses the problem; no result of this source is formalized"
+  - title: "Erdős problem #1220 (erdosproblems.com)"
+    authors: ["Thomas F. Bloom (ed.)"]
+    id: "https://www.erdosproblems.com/1220"
+    type: "web discussion"
+    relationship: background
+    author_endorsement: "not-contacted"
+    note: >-
+      the canonical modern statement; the Mathlib-level statement Erdos1220.Problem1220 (singular
+      λ, λ and cf λ ℵ₀-inaccessible, binary arrow λ → (λ, ℵ₁)² on unordered pairs) follows it
+  - title: "A theorem and some consistency results in partition calculus"
+    authors: ["Saharon Shelah", "Lee J. Stanley"]
+    id: "Ann. Pure Appl. Logic 36 (1987), 119–152 (Sh:258), doi:10.1016/0168-0072(87)90015-7"
+    type: paper
+    location: "§3 (the forcing: basic conditions, histories, amalgamation; §3.7–§3.9 chain condition and homogeneous sets)"
+    relationship: adapts
+    author_endorsement: "not-contacted"
+    note: >-
+      the consistency of a negative answer.  Formalized with these adaptations: the forcing is
+      restricted to block-preserving, block-covering histories with a weak (flip-closed)
+      extension order; the ground-model witness is the strong limit ℶ_{𝔠⁺}; the chain
+      condition is proved for θ = (2^μ)⁺ in ZFC without GCH; the argument is carried out in
+      Flypitch's Boolean-valued model rather than in a generic extension
+
+related_formalizations:
+  - id: "https://github.com/elliotglazer/erdos501"
+    relationship: builds-on
+    note: >-
+      pinned dependency (rev 218d1c1, Apache-2.0): its statement module Erdos501.FOL.Statement
+      (language L, theory ZFC, formula combinators, zfsetStructure) is imported by the Challenge,
+      so the target is stated for the same ZFC; its vendored Lean 4 Flypitch (Boolean-valued
+      models, completeness theorem, regular-open algebras), its Mathlib-ModelTheory bridge and
+      its Δ-system proof for 𝔠⁺ countable sets (generalized here to (2^μ)⁺ sets of size ≤ μ,
+      Erdos1220/DeltaSystem.lean) are reused; its comparator tooling (scripts, pins) is adapted
+  - id: "https://github.com/flypitch/flypitch"
+    relationship: builds-on
+    note: >-
+      Han–van Doorn, "A formal proof of the independence of the continuum hypothesis" (CPP 2020);
+      used through erdos501's vendored Lean 4 port (Flypitch4/, Ian Klatzco with Claude)
+  - id: "https://github.com/05-02-07/lean-constructible-universe"
+    relationship: other
+    note: >-
+      pinned in lakefile.toml (rev 7f5a7d0, Apache-2.0, Zike Liu 2026) and imported only by the
+      exploratory module Erdos1220Full/GCHFoundation.lean, which is not in the import closure of
+      Solution.lean; no result of it is used by the comparator targets
+  - id: "https://github.com/leanprover-community/mathlib4"
+    relationship: builds-on
+    note: >-
+      Mathlib.ModelTheory, ZFSet and cardinal arithmetic supply the trusted statements (pinned
+      commit 355bc1e0ed1d36e49525121e1a280ca13a058a92)
+
+classification:
+  arxiv: ["math.LO"]
+  msc2020: ["03E35", "03E02", "03E05", "03E40", "03E55"]
+
+status:
+  scope: >-
+    The consistency of a negative answer to Erdős #1220, ¬ (ZFC ⊨ᵇ Erdos1220), and the
+    faithfulness of the first-order rendering.  Complete for these two targets: no sorry in the
+    import closure of Solution.lean.  The consistency of a positive answer (hence independence)
+    is not claimed and not formalized.
+  sorry_count: 0  # the two sorries of Challenge.lean are the comparator's trusted statements
+  known_gaps: >-
+    Toolchain: this commit is built with Lean v4.34.0-rc1 / Mathlib 355bc1e (the toolchain of the
+    erdos501 dependency).  Palomar's current minimum toolchain is v4.35.0-rc2, so a port of the
+    project and of the erdos501 dependency to a newer Lean/Mathlib is required before submission;
+    it is in progress and will be added as a new commit.  Mathematical scope: non-provability
+    only (see fidelity).
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: "erdos1220_not_provable"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "comparator.json"
+    - declaration: "erdos1220_sentence_faithful"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: agent
+      models:
+        - "Claude Opus 5.5 (Anthropic; Claude Code)"
+        - "Astra (OpenAI Codex)"
+      framework: "Claude Code and Codex agent sessions, coordinated in parallel"
+      tool_setup: >-
+        Claude Code (Claude Opus 5.5) and OpenAI Codex (Astra) agent sessions with remote Lean
+        builds (Lean v4.34.0-rc1, pinned Mathlib) on a DigitalOcean server.  The agents assisted
+        in writing Lean code under Ji Ho Bae's direction, ran lake builds, axiom audits and the
+        comparator, and cross-reviewed the Lean developments.
+    - method: manual
+      tool_setup: >-
+        Ji Ho Bae: problem selection, literature connection (Shelah–Stanley), mathematical
+        direction and formalization strategy, writing of Lean code, supervision and review of
+        all results, and final responsibility for the project.
+  notes: >-
+    Ji Ho Bae led the project and wrote Lean code together with the AI agents listed above
+    (Claude Opus 5.5 / Astra), which also reviewed and cross-checked the Lean code.  All proofs
+    are checked by Lean's kernel; the comparator accepts the challenge with the standard axioms
+    only.
+
+fidelity:
+  divergences: >-
+    (1) Non-provability is proved for the first-order sentence Erdos1220 ("every singular
+    cardinal λ with λ and cf λ ℵ₀-inaccessible satisfies λ → (λ, ℵ₁)²"), rendered inside
+    erdos501's language ∅, ω, 𝒫, ⋃, (·,·), ∈; erdos1220_sentence_faithful certifies that in
+    Mathlib's ZFSet it is equivalent to Erdos1220.Problem1220.{0}.  Inside the sentence,
+    cardinality comparisons are injections, cardinals are initial ordinals, cofinality is the
+    least size of a cofinal subset, μ^ℵ₀ < κ is "the set of functions ω → μ injects into some
+    α ∈ κ", colourings are sets of ordered pairs (α, β) with α ∈ β ∈ λ.  (2) ZFC is erdos501's
+    (Flypitch's) axiomatization, equivalent to the usual ZFC.  (3) Non-provability is stated
+    semantically (Mathlib has no proof calculus): some model of ZFC with carrier in Type 0
+    satisfies ¬Erdos1220 (by Löwenheim–Skolem no restriction).  (4) The witness is ℶ_{𝔠⁺} of
+    the ground model, not ℵ_{𝔠⁺}; the chain condition is proved for θ = (2^μ)⁺ in ZFC (no GCH).
+    (5) The result answers the question as posed ("does λ → (λ, ℵ₁)² hold?") in the sense
+    "not provable in ZFC", the erdosproblems.com status category used e.g. for #474; the
+    consistency of the affirmative answer (hence full independence) is not part of this
+    formalization.
+
+review:
+  status: agent-reviewed
+  reviewers:
+    - "Ji Ho Bae"
+    - "Claude Opus 5.5 and Astra agent sessions (cross-review of the forcing development and of the trusted statements)"
+  notes: >-
+    No independent external peer review.  Mechanical checks (2026-09-26): Challenge.lean
+    is generated verbatim from the library's statement modules (sync_challenge.py --check:
+    in sync); the Lean comparator (leanprover/comparator 777e7f5, lean4export v4.34.0-rc1,
+    landrun 0.1.15 sandbox; NanoDa (robsimmons/nanoda_lib 68d5ca9) enabled) judged
+    comparator.json on 2026-09-26 09:34 KST with the Mathlib-only Challenge: "Nanoda kernel
+    accepts the solution / Lean default kernel accepts the solution / Your solution is okay!";
+    the Challenge's transitive import closure (4049 modules) contains only Lean core, Mathlib and
+    Mathlib's pinned dependencies; axiom audit (AxiomAudit.lean): both targets depend on
+    [propext, Classical.choice, Quot.sound].  Toolchain Lean v4.34.0-rc1, Mathlib
+    355bc1e0ed1d36e49525121e1a280ca13a058a92.
+
+alignment:
+  namespace: "Erdos1220, Erdos1220.FOL, Erdos1220.Final, Erdos1220.DeltaSystem, Erdos1220.HistoryBlueprint, Erdos1220Full"
+  statements:
+    - source: "Shelah–Stanley 1987 (Sh:258), consistency of a negative answer"
+      lean: "erdos1220_not_provable (Erdos1220.FOL.erdos1220_not_provable ← not_provable_of_names (check X) cdot₁ hyp₁ colouring₁ arrow₁)"
+      module: "Solution.lean (Erdos1220Full/Independence1220.lean, Assembly1220.lean, Bridge1220.lean)"
+      status: proved
+    - source: "Faithfulness of the first-order rendering (erdosproblems.com statement)"
+      lean: "erdos1220_sentence_faithful (Erdos1220.FOL.erdos1220_sentence_faithful)"
+      module: "Solution.lean (Erdos1220Full/Faithful1220.lean)"
+      status: proved
+    - source: "Sh:258 §3: hypotheses on λ preserved"
+      lean: "Erdos1220.Final.hyp₁"
+      module: "Erdos1220Full/CofInstance1220.lean, HypInstance1220.lean"
+      status: proved
+    - source: "Sh:258 §3.9: no red homogeneous set of size λ"
+      lean: "Erdos1220.Final.red₁ (Erdos1220Full.RedExclusion.red_exclusion, Erdos1220.BPHistory.red_core)"
+      module: "Erdos1220Full/Red1220.lean, RedExclusion.lean, Erdos1220/RedCore.lean"
+      status: proved
+    - source: "Sh:258 §3.7: no blue homogeneous set of size ℵ₁"
+      lean: "Erdos1220.Final.blue₁"
+      module: "Erdos1220Full/BlueFinal1220.lean"
+      status: proved
+    - source: "Sh:258 §3.8: (2^μ)⁺-chain condition"
+      lean: "Erdos1220Full.RedExclusion.antichain_CHP, Erdos1220Full.antichainBound_HP (Erdos1220.HistoryBlueprint.cc_histories)"
+      module: "Erdos1220Full/RedExclusion.lean, AntichainHP.lean, Erdos1220/HistoryBlueprint.lean, Erdos1220/DeltaSystem.lean"
+      status: proved
+
+acknowledgements: >-
+  Saharon Shelah and Lee J. Stanley (the mathematics); Elliot Glazer and collaborators (erdos501,
+  whose statement module, vendored Flypitch port, Δ-system argument and comparator tooling are
+  reused under Apache-2.0); Jesse Michael Han and Floris van Doorn (Flypitch); Ian Klatzco (Lean 4
+  port of Flypitch); the Mathlib community; Thomas Bloom's erdosproblems.com; the Lean FRO for the
+  comparator.

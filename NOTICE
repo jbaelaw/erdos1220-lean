@@ -1,0 +1,20 @@
+Erdős Problem #1220 in Lean 4 — the affirmative statement is not provable in ZFC
+Copyright 2026 Ji Ho Bae. Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This project builds on the following works, used under the Apache License 2.0:
+
+* elliotglazer/erdos501 (Elliot Glazer and collaborators), pinned in lake-manifest.json.
+  Challenge.lean Part A0 copies verbatim, restricted to the declarations used here, the language
+  L, the formula combinators, the theory ZFC and zfsetStructure from its module
+  Erdos501/FOL/Statement.lean. Erdos1220/DeltaSystem.lean generalizes its Δ-system argument.
+  scripts/install-comparator-tools.sh and scripts/install-nanoda.sh adapt its comparator tooling.
+* Flypitch (Jesse Michael Han and Floris van Doorn, Copyright 2019 The Flypitch Project), used
+  through erdos501's vendored Lean 4 port (Ian Klatzco, with Claude). Several files here adapt
+  Flypitch arguments; each says so in its header.
+* lean-constructible-universe (Zike Liu, 2026), pinned in lake-manifest.json; imported only by
+  Erdos1220Full/GCHFoundation.lean, which is not used by the comparator targets.
+* Mathlib (Apache 2.0).
+
+Mathematics: S. Shelah and L. J. Stanley, A theorem and some consistency results in partition
+calculus, Annals of Pure and Applied Logic 36 (1987), 119–152 (Sh:258), §3.
+Problem: P. Erdős and A. Hajnal, Unsolved problems in set theory (1971); erdosproblems.com/1220.

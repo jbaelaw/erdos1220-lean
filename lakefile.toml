@@ -1,0 +1,33 @@
+name = "erdos1220_full"
+version = "1.0.0"
+defaultTargets = ["Erdos1220Full", "Challenge", "Solution"]
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "erdos501"
+git = "https://github.com/elliotglazer/erdos501.git"
+rev = "218d1c1e46f77d4db80e566d1721782e85b94a17"
+
+[[require]]
+name = "lean-constructible-universe"
+git = "https://github.com/05-02-07/lean-constructible-universe.git"
+rev = "7f5a7d03d63d9769172f17350bbe8303996e5b53"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "355bc1e0ed1d36e49525121e1a280ca13a058a92"
+
+[[lean_lib]]
+name = "Erdos1220Full"
+
+[[lean_lib]]
+name = "Erdos1220"
+
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"

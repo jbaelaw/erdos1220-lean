@@ -1,0 +1,10 @@
+{
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+        "erdos1220_not_provable",
+        "erdos1220_sentence_faithful"
+    ],
+    "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+    "enable_nanoda": true
+}
