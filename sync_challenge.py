@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate (or --check) Challenge.lean from the library's statement definitions.
+"""Generate (or --check) Erdos1220Challenge.lean from the library's statement definitions.
 
 Part A of the Challenge must consist of declarations *identical* to the ones the Solution's
 library defines (the comparator checks every constant occurring in the target statements), so it
@@ -57,17 +57,17 @@ def render():
     problem = block('Erdos1220.lean', '/-- Closure below', '/-- The cardinal `ℵ_(𝔠⁺)`')
     sentence = block('Erdos1220Full/Statement1220.lean', '/-- `|A| ≤ |B|`',
                      '/-- **Target (headline)**')
-    tmpl = (HERE / 'Challenge.template').read_text()
+    tmpl = (HERE / 'Erdos1220Challenge.template').read_text()
     return (tmpl.replace('@@PROBLEM1220@@', problem).replace('@@SENTENCE1220@@', sentence)
             .replace('@@ERDOS501_PARTA@@', erdos501_parta()))
 
 
 if __name__ == '__main__':
-    out = HERE / 'Challenge.lean'
+    out = HERE / 'Erdos1220Challenge.lean'
     text = render()
     if '--check' in sys.argv:
         ok = out.exists() and out.read_text() == text
-        print('Challenge.lean in sync' if ok else 'Challenge.lean OUT OF SYNC')
+        print('Erdos1220Challenge.lean in sync' if ok else 'Erdos1220Challenge.lean OUT OF SYNC')
         sys.exit(0 if ok else 1)
     out.write_text(text)
     print('wrote', out)

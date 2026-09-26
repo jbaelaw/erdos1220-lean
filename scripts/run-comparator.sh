@@ -8,5 +8,5 @@ export HOME="${HOME:-/root}"
 export PATH="$T/bin:/root/.elan/bin:$PATH"
 if [ "${FAKE_LANDRUN:-0}" = "1" ]; then export COMPARATOR_LANDRUN="$T/bin/fake-landrun.sh"; fi
 cd "$R"
-lake build Challenge Solution
+lake build Erdos1220Challenge Erdos1220Solution
 lake env comparator "$CONFIG"

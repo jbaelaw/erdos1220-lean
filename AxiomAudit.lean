@@ -1,5 +1,5 @@
 /- Axiom audit of the comparator targets (run with `lake env lean AxiomAudit.lean` after staging). -/
-import Solution
+import Erdos1220Solution
 
 #print axioms erdos1220_not_provable
 #print axioms erdos1220_sentence_faithful

@@ -1,6 +1,6 @@
 name = "erdos1220_full"
 version = "1.0.0"
-defaultTargets = ["Erdos1220Full", "Challenge", "Solution"]
+defaultTargets = ["Erdos1220Full", "Erdos1220Challenge", "Erdos1220Solution"]
 
 [leanOptions]
 autoImplicit = false
@@ -23,7 +23,7 @@ name = "Erdos1220Full"
 name = "Erdos1220"
 
 [[lean_lib]]
-name = "Challenge"
+name = "Erdos1220Challenge"
 
 [[lean_lib]]
-name = "Solution"
+name = "Erdos1220Solution"

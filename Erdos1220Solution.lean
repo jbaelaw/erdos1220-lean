@@ -5,11 +5,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 # Erdős Problem #1220 — comparator solution
 
 The untrusted half of the comparator challenge, modelled on elliotglazer/erdos501's
-`Solution.lean`: the statements of `Challenge.lean` (Part B), repeated verbatim, each proved by
+`Solution.lean`: the statements of `Erdos1220Challenge.lean` (Part B), repeated verbatim, each proved by
 delegation to the library.  Only the statements are compared by the comparator; this file may
-import anything (it must not import `Challenge`).
+import anything (it must not import `Erdos1220Challenge`).
 
-The shared definitions of `Challenge.lean` (Part A) are provided here by the library itself:
+The shared definitions of `Erdos1220Challenge.lean` (Part A) are provided here by the library itself:
 `Erdos1220.Problem1220` and friends by `Erdos1220.lean`, the sentence `Erdos1220.FOL.Erdos1220` by
 `Erdos1220Full/Statement1220.lean` (Part A of the Challenge is generated verbatim from these two
 files by `sync_challenge.py`), and `L`, `ZFC`, `zfsetStructure` by erdos501's

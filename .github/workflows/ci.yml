@@ -24,10 +24,13 @@ jobs:
           test: false
           lint: false
 
-      - name: Build the comparator modules
-        run: lake build Challenge Solution
+      - name: Comparator modules resolve to this project without dependency collisions
+        run: python3 scripts/check-module-resolution.py
 
-      - name: Challenge.lean is in sync with the library's statement modules
+      - name: Build the comparator modules
+        run: lake build Erdos1220Challenge Erdos1220Solution
+
+      - name: Erdos1220Challenge.lean is in sync with the library's statement modules
         run: python3 sync_challenge.py --check
 
       - name: Axiom audit of the comparator targets

@@ -77,7 +77,7 @@ related_formalizations:
     note: >-
       dependency (Apache-2.0), pinned as the fork jbaelaw/flypitch4-lean at 78e1fd0 = upstream 218d1c1
       plus a minimal port to Lean v4.35.0-rc3 (renamed/removed lemmas only): its statement module Erdos501.FOL.Statement
-      (language L, theory ZFC, formula combinators, zfsetStructure) is imported by the Challenge,
+      (language L, theory ZFC, formula combinators, zfsetStructure) is copied verbatim into the Mathlib-only Challenge,
       so the target is stated for the same ZFC; its vendored Lean 4 Flypitch (Boolean-valued
       models, completeness theorem, regular-open algebras), its Mathlib-ModelTheory bridge and
       its Δ-system proof for 𝔠⁺ countable sets (generalized here to (2^μ)⁺ sets of size ≤ μ,
@@ -101,9 +101,9 @@ status:
   scope: >-
     The consistency of a negative answer to Erdős #1220, ¬ (ZFC ⊨ᵇ Erdos1220), and the
     faithfulness of the first-order rendering.  Complete for these two targets: no sorry in the
-    import closure of Solution.lean.  The consistency of a positive answer (hence independence)
+    import closure of Erdos1220Solution.lean.  The consistency of a positive answer (hence independence)
     is not claimed and not formalized.
-  sorry_count: 0  # the two sorries of Challenge.lean are the comparator's trusted statements
+  sorry_count: 0  # the two sorries of Erdos1220Challenge.lean are the comparator's trusted statements
   known_gaps: >-
     Mathematical scope: non-provability only (see fidelity).  The erdos501 dependency is used
     through a fork ported to Lean v4.35.0-rc3; only the modules in the import closure of the
@@ -112,12 +112,12 @@ status:
   axioms: [propext, Classical.choice, Quot.sound]
   main_results:
     - declaration: "erdos1220_not_provable"
-      file: "Solution.lean"
+      file: "Erdos1220Solution.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
       comparator_config: "comparator.json"
     - declaration: "erdos1220_sentence_faithful"
-      file: "Solution.lean"
+      file: "Erdos1220Solution.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
       comparator_config: "comparator.json"
@@ -169,7 +169,7 @@ review:
     - "Ji Ho Bae"
     - "Claude Opus 5.5 and Astra agent sessions (cross-review of the forcing development and of the trusted statements)"
   notes: >-
-    No independent external peer review.  Mechanical checks (2026-09-26): Challenge.lean
+    No independent external peer review.  Mechanical checks (2026-09-26): Erdos1220Challenge.lean
     is generated verbatim from the library's statement modules (sync_challenge.py --check:
     in sync); the Lean comparator (leanprover/comparator 777e7f5 and lean4export 66f1fb4 = tag
     v4.35.0-rc3, both built with the project toolchain; landrun 0.1.15 sandbox; NanoDa
@@ -188,11 +188,11 @@ alignment:
   statements:
     - source: "Shelah–Stanley 1987 (Sh:258), consistency of a negative answer"
       lean: "erdos1220_not_provable (Erdos1220.FOL.erdos1220_not_provable ← not_provable_of_names (check X) cdot₁ hyp₁ colouring₁ arrow₁)"
-      module: "Solution.lean (Erdos1220Full/Independence1220.lean, Assembly1220.lean, Bridge1220.lean)"
+      module: "Erdos1220Solution.lean (Erdos1220Full/Independence1220.lean, Assembly1220.lean, Bridge1220.lean)"
       status: proved
     - source: "Faithfulness of the first-order rendering (erdosproblems.com statement)"
       lean: "erdos1220_sentence_faithful (Erdos1220.FOL.erdos1220_sentence_faithful)"
-      module: "Solution.lean (Erdos1220Full/Faithful1220.lean)"
+      module: "Erdos1220Solution.lean (Erdos1220Full/Faithful1220.lean)"
       status: proved
     - source: "Sh:258 §3: hypotheses on λ preserved"
       lean: "Erdos1220.Final.hyp₁"

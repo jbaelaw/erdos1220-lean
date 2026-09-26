@@ -6,7 +6,7 @@ This project builds on the following works, used under the Apache License 2.0:
 * elliotglazer/erdos501 (Elliot Glazer and collaborators), used through the fork
   jbaelaw/flypitch4-lean (branch lean-v4.35.0-rc3: upstream 218d1c1 plus a minimal Lean v4.35.0-rc3 port),
   pinned in lake-manifest.json.
-  Challenge.lean Part A0 copies verbatim, restricted to the declarations used here, the language
+  Erdos1220Challenge.lean Part A0 copies verbatim, restricted to the declarations used here, the language
   L, the formula combinators, the theory ZFC and zfsetStructure from its module
   Erdos501/FOL/Statement.lean. Erdos1220/DeltaSystem.lean generalizes its Δ-system argument.
   scripts/install-comparator-tools.sh and scripts/install-nanoda.sh adapt its comparator tooling.
