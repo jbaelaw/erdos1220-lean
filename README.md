@@ -59,7 +59,7 @@ formalization follows their historical forcing with these choices:
 
 ## How to verify
 
-Toolchain `leanprover/lean4:v4.34.0-rc1`, Mathlib `355bc1e0ed1d36e49525121e1a280ca13a058a92`.
+Toolchain `leanprover/lean4:v4.35.0-rc3`, Mathlib `c55e6e786f49471c72fbddbec5415808896aec1e` (tag `v4.35.0-rc3`).
 
 ```sh
 lake exe cache get && lake build
@@ -70,8 +70,10 @@ bash scripts/install-nanoda.sh "$PWD/.tools"
 bash scripts/run-comparator.sh "$PWD" "$PWD/.tools" comparator.json
 ```
 
-**Recorded result (2026-09-26 KST).** comparator `777e7f5`, lean4export `v4.34.0-rc1`,
-landrun 0.1.15 sandbox, NanoDa (`robsimmons/nanoda_lib` `68d5ca9`):
+**Recorded result (2026-09-26 KST), Lean v4.35.0-rc3.** comparator `777e7f5` and lean4export
+`66f1fb4` (tag `v4.35.0-rc3`), both built with the project toolchain; landrun 0.1.15 sandbox;
+NanoDa (`robsimmons/nanoda_lib` `68d5ca9`). Verified independently on the released tree (Git pin of
+`jbaelaw/flypitch4-lean` @ `78e1fd0`) and on the port tree:
 
 ```
 Running nanoda kernel on solution
@@ -83,13 +85,20 @@ Your solution is okay!
 'erdos1220_sentence_faithful' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
+The same checks passed earlier on Lean v4.34.0-rc1 (commit `4f51c83`).
+
 The Challenge's transitive import closure contains only Lean core, Mathlib and Mathlib's pinned
 dependencies. The whole library audit (`Erdos1220Full/AxiomAudit.lean`) finds no declaration
-depending on anything but the three standard axioms, and no `sorry`.
+depending on anything but the three standard axioms (1831 declarations), and no `sorry`.
 
-**Toolchain note.** Palomar currently requires Lean ≥ v4.35.0-rc2. This commit uses
-v4.34.0-rc1 (the toolchain of the erdos501 dependency); a port to a newer Lean/Mathlib is in
-progress and will be added as a later commit.
+**Toolchain history.** The development was first verified on Lean v4.34.0-rc1 (commit 4f51c83,
+the toolchain of the erdos501 dependency), then ported to v4.35.0-rc3 (Palomar requires
+≥ v4.35.0-rc2). The erdos501 dependency is used through the fork `jbaelaw/flypitch4-lean`
+(branch `lean-v4.35.0-rc3`), which is upstream 218d1c1 plus renamed/removed-lemma fixes only.
+
+**Why erdos501?** It is used only as a library: it contains the Lean 4 port of Flypitch
+(Boolean-valued models, forcing, completeness theorem) and the Mathlib-ModelTheory definition of
+`ZFC` used by its own Palomar challenge. None of its #501-specific results are imported.
 
 ## Credits and licence
 
@@ -102,8 +111,6 @@ progress and will be added as a later commit.
 - **elliotglazer/erdos501** (Apache-2.0, pinned): statement module (copied into Part A0), vendored
   Lean 4 port of **Flypitch** (Jesse Michael Han and Floris van Doorn; Lean 4 port by Ian Klatzco),
   Mathlib-ModelTheory bridge, Δ-system argument (generalized), comparator tooling.
-- **lean-constructible-universe** (Zike Liu, Apache-2.0): pinned; imported only by an exploratory
-  module outside the import closure of `Solution.lean`.
 - Mathlib; the Lean FRO comparator; NanoDa; Thomas Bloom's erdosproblems.com.
 
 Licensed under the Apache License 2.0 (`LICENSE`); see `NOTICE` for attributions.

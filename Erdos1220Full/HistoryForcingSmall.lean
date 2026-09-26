@@ -139,7 +139,7 @@ theorem chainCondition_Alg0_of_antichainBound [Nonempty (HP0 V I block μ hμ)]
   intro ι p hι
   obtain ⟨i, j, hij, hc⟩ := h (ULift.{u + 1} ι) (fun k => p k.down)
     (by rw [Cardinal.mk_uLift]; exact Cardinal.lift_le.mpr hι)
-  exact ⟨i.down, j.down, fun he => hij (ULift.ext _ _ he), hc⟩
+  exact ⟨i.down, j.down, fun he => hij (ULift.down_injective he), hc⟩
 
 /-! ## Distributivity for the shrunk forcing -/
 

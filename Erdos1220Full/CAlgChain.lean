@@ -30,7 +30,7 @@ theorem chainCondition_CAlg_two_pow [Nonempty (CHP0 V I block μ hμ)] (hI : #I 
     (by rw [Cardinal.mk_uLift]; exact Cardinal.lift_le.mpr hι)
   have hcov : CoversBlocks (show BPHistory V I block μ hμ from r).1.last :=
     (HistoryForcing.le_iff.mp hri).coversBlocks (p i.down).2
-  exact ⟨i.down, j.down, fun h => hij (ULift.ext _ _ h),
+  exact ⟨i.down, j.down, fun h => hij (ULift.down_injective h),
     ⟨⟨r, hcov⟩, HistoryForcing.le_iff.mp hri, HistoryForcing.le_iff.mp hrj⟩⟩
 
 end HistoryForcing

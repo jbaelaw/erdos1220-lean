@@ -3,10 +3,10 @@
 # Adapted from elliotglazer/erdos501 scripts/install-comparator-tools.sh (Apache-2.0), same pins;
 # additionally bootstraps a private Go toolchain when `go` is absent (no system-wide install).
 #
-# Usage: install-comparator-tools.sh <tools-dir> [toolchain]   (toolchain default v4.34.0-rc1)
+# Usage: install-comparator-tools.sh <tools-dir> [toolchain]   (toolchain default v4.35.0-rc3, the project toolchain)
 set -euo pipefail
 TOOLS="${1:?tools dir}"
-LEAN_TAG="${2:-v4.34.0-rc1}"
+LEAN_TAG="${2:-v4.35.0-rc3}"
 TOOLCHAIN="leanprover/lean4:$LEAN_TAG"
 mkdir -p "$TOOLS/bin"
 export HOME="${HOME:-/root}"
@@ -41,6 +41,8 @@ echo "== comparator @ $COMPARATOR_REV"
 ( cd "$TOOLS/comparator"
   git fetch -q
   git checkout -q "$COMPARATOR_REV"
+  # build comparator with the project toolchain so that its embedded kernel matches the export
+  echo "$TOOLCHAIN" > lean-toolchain
   lake build comparator
   ln -sf "$PWD/.lake/build/bin/comparator" "$TOOLS/bin/comparator"
   cp scripts/fake-landrun.sh "$TOOLS/bin/fake-landrun.sh" 2>/dev/null || true )

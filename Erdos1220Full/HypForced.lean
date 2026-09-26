@@ -555,7 +555,7 @@ theorem omega_func_inj : ∀ i j : PSet.omega.{0}.Type,
   have h1 : _root_.Erdos1220.FOL.natZ i.down = _root_.Erdos1220.FOL.natZ j.down := ZFSet.sound h
   rw [_root_.Erdos1220.FOL.natZ_eq_toZFSet, _root_.Erdos1220.FOL.natZ_eq_toZFSet] at h1
   have h2 := Ordinal.toZFSet_injective h1
-  exact ULift.ext _ _ (by exact_mod_cast h2)
+  exact ULift.down_injective (by exact_mod_cast h2)
 
 /-! ### (Hdist) singularity of `λ̌` via distributivity -/
 

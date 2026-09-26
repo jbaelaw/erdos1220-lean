@@ -316,7 +316,8 @@ theorem play_succ (α : Ordinal.{u}) :
       answerII (play start moveI α) (moveI α fun γ _ => play start moveI γ) := by
   classical
   have h : ∃ β, Order.succ β = Order.succ α := ⟨α, rfl⟩
-  rw [play_eq, playStep, if_neg (Ordinal.succ_ne_zero α), dif_pos h]
+  rw [play_eq, playStep, if_neg (show Order.succ α ≠ 0 from fun h =>
+    Order.succ_ne_bot α (h.trans Ordinal.bot_eq_zero.symm)), dif_pos h]
   have hc : Classical.choose h = α := Order.succ_injective (Classical.choose_spec h)
   rw [hc]
 
@@ -342,8 +343,8 @@ stage below `(succ μ).ord`: at limit stages below `μ⁺` the coherent union
 always exists. -/
 theorem play_pure_chain (α : Ordinal.{u}) (hα : α < (Order.succ μ).ord) :
     ∀ β, β ≤ α → PureExtends (play start moveI β).1 (play start moveI α).1 := by
-  induction α using Ordinal.induction with
-  | h α ih =>
+  induction α using WellFoundedLT.induction with
+  | ind α ih =>
   rcases Ordinal.zero_or_succ_or_isSuccLimit α with h0 | ⟨γ, rfl⟩ | hlim
   · subst h0
     intro β hβ

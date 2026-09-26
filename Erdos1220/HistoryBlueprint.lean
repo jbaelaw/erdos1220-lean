@@ -192,7 +192,7 @@ lemma exists_stageCode (hμ : ℵ₀ ≤ μ) (ℓ : Ordinal.{u}) (hℓ : ℓ < (
   classical
   have := coord_nonempty hμ
   have h1 : (succ ℓ).card ≤ μ := by
-    rw [Ordinal.card_succ]
+    rw [Order.succ_eq_add_one, Ordinal.card_add_one]
     exact add_le_of_le hμ (card_lt_succ_ord_iff.mp hℓ) (one_le_aleph0.trans hμ)
   have hcard : Cardinal.lift.{u} #(Iic ℓ) ≤ Cardinal.lift.{u + 1} #(Coord μ) := by
     rw [← Order.Iio_succ, Cardinal.mk_Iio_ordinal, mk_coord, Cardinal.lift_lift]

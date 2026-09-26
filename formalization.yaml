@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
 # formalization.yaml (v0.4) — metadata for the Lean 4 formalization of Erdős Problem #1220.
 # Modelled on elliotglazer/erdos501's formalization.yaml.  Palomar registry conventions
-# (https://palomar-registry.org/how-to-submit) are followed.  NOT YET SUBMITTED (see status.known_gaps: toolchain).
+# (https://palomar-registry.org/how-to-submit) are followed.  NOT YET SUBMITTED.
 
 version: "v0.4"
 
@@ -75,7 +75,8 @@ related_formalizations:
   - id: "https://github.com/elliotglazer/erdos501"
     relationship: builds-on
     note: >-
-      pinned dependency (rev 218d1c1, Apache-2.0): its statement module Erdos501.FOL.Statement
+      dependency (Apache-2.0), pinned as the fork jbaelaw/flypitch4-lean at 78e1fd0 = upstream 218d1c1
+      plus a minimal port to Lean v4.35.0-rc3 (renamed/removed lemmas only): its statement module Erdos501.FOL.Statement
       (language L, theory ZFC, formula combinators, zfsetStructure) is imported by the Challenge,
       so the target is stated for the same ZFC; its vendored Lean 4 Flypitch (Boolean-valued
       models, completeness theorem, regular-open algebras), its Mathlib-ModelTheory bridge and
@@ -86,17 +87,11 @@ related_formalizations:
     note: >-
       Han–van Doorn, "A formal proof of the independence of the continuum hypothesis" (CPP 2020);
       used through erdos501's vendored Lean 4 port (Flypitch4/, Ian Klatzco with Claude)
-  - id: "https://github.com/05-02-07/lean-constructible-universe"
-    relationship: other
-    note: >-
-      pinned in lakefile.toml (rev 7f5a7d0, Apache-2.0, Zike Liu 2026) and imported only by the
-      exploratory module Erdos1220Full/GCHFoundation.lean, which is not in the import closure of
-      Solution.lean; no result of it is used by the comparator targets
   - id: "https://github.com/leanprover-community/mathlib4"
     relationship: builds-on
     note: >-
       Mathlib.ModelTheory, ZFSet and cardinal arithmetic supply the trusted statements (pinned
-      commit 355bc1e0ed1d36e49525121e1a280ca13a058a92)
+      commit c55e6e786f49471c72fbddbec5415808896aec1e, tag v4.35.0-rc3)
 
 classification:
   arxiv: ["math.LO"]
@@ -110,11 +105,9 @@ status:
     is not claimed and not formalized.
   sorry_count: 0  # the two sorries of Challenge.lean are the comparator's trusted statements
   known_gaps: >-
-    Toolchain: this commit is built with Lean v4.34.0-rc1 / Mathlib 355bc1e (the toolchain of the
-    erdos501 dependency).  Palomar's current minimum toolchain is v4.35.0-rc2, so a port of the
-    project and of the erdos501 dependency to a newer Lean/Mathlib is required before submission;
-    it is in progress and will be added as a new commit.  Mathematical scope: non-provability
-    only (see fidelity).
+    Mathematical scope: non-provability only (see fidelity).  The erdos501 dependency is used
+    through a fork ported to Lean v4.35.0-rc3; only the modules in the import closure of the
+    targets are claimed to build there.
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
   main_results:
@@ -138,7 +131,7 @@ automation:
       framework: "Claude Code and Codex agent sessions, coordinated in parallel"
       tool_setup: >-
         Claude Code (Claude Opus 5.5) and OpenAI Codex (Astra) agent sessions with remote Lean
-        builds (Lean v4.34.0-rc1, pinned Mathlib) on a DigitalOcean server.  The agents assisted
+        builds (Lean v4.34.0-rc1, then v4.35.0-rc3; pinned Mathlib) on a DigitalOcean server.  The agents assisted
         in writing Lean code under Ji Ho Bae's direction, ran lake builds, axiom audits and the
         comparator, and cross-reviewed the Lean developments.
     - method: manual
@@ -178,14 +171,17 @@ review:
   notes: >-
     No independent external peer review.  Mechanical checks (2026-09-26): Challenge.lean
     is generated verbatim from the library's statement modules (sync_challenge.py --check:
-    in sync); the Lean comparator (leanprover/comparator 777e7f5, lean4export v4.34.0-rc1,
-    landrun 0.1.15 sandbox; NanoDa (robsimmons/nanoda_lib 68d5ca9) enabled) judged
-    comparator.json on 2026-09-26 09:34 KST with the Mathlib-only Challenge: "Nanoda kernel
-    accepts the solution / Lean default kernel accepts the solution / Your solution is okay!";
-    the Challenge's transitive import closure (4049 modules) contains only Lean core, Mathlib and
-    Mathlib's pinned dependencies; axiom audit (AxiomAudit.lean): both targets depend on
-    [propext, Classical.choice, Quot.sound].  Toolchain Lean v4.34.0-rc1, Mathlib
-    355bc1e0ed1d36e49525121e1a280ca13a058a92.
+    in sync); the Lean comparator (leanprover/comparator 777e7f5 and lean4export 66f1fb4 = tag
+    v4.35.0-rc3, both built with the project toolchain; landrun 0.1.15 sandbox; NanoDa
+    robsimmons/nanoda_lib 68d5ca9 enabled) judged comparator.json on 2026-09-26 (KST), on the
+    released tree with the Git-pinned erdos501 fork and independently on the port tree: "Nanoda
+    kernel accepts the solution / Lean default kernel accepts the solution / Your solution is
+    okay!" (the same result was first obtained on Lean v4.34.0-rc1, commit 4f51c83); the
+    Challenge's transitive import closure contains only Lean core, Mathlib and Mathlib's pinned
+    dependencies; axiom audit (AxiomAudit.lean): both targets depend on [propext,
+    Classical.choice, Quot.sound]; whole-library audit (Erdos1220Full/AxiomAudit.lean): all 1831
+    declarations likewise.  Toolchain Lean v4.35.0-rc3, Mathlib
+    c55e6e786f49471c72fbddbec5415808896aec1e.
 
 alignment:
   namespace: "Erdos1220, Erdos1220.FOL, Erdos1220.Final, Erdos1220.DeltaSystem, Erdos1220.HistoryBlueprint, Erdos1220Full"

@@ -7,6 +7,5 @@ import Erdos1220.History
 import Erdos1220.Ancestry
 import Erdos1220.HistoryConstruction
 import Erdos1220.PureExtension
-import Erdos1220Full.GCHFoundation
 import Erdos1220Full.ChainPreservation
 import Erdos1220Full.CountablePreservation

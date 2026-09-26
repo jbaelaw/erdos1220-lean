@@ -3,7 +3,8 @@ Flypitch-side mirror of `Erdos1220Full/Statement1220.lean`, following erdos501
 (`Flypitch4/Erdos501/Sentence.lean` / `Erdos501/FOL/Sentence.lean`, Apache 2.0).
 -/
 import Erdos1220Full.Statement1220
-import Erdos501.FOL.Sentence
+import Erdos501.FOL.Axioms
+import Flypitch4.Erdos501.Sentence
 
 /-!
 # `Erdos1220_f`: the same sentence built from Flypitch's combinators

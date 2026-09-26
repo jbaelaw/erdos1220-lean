@@ -79,7 +79,7 @@ theorem run_eq (α : Ordinal.{v}) :
     hP.run hΓ φ α = hP.move hΓ φ (fun β => if β < α then hP.run hΓ φ β else ⊥) α := by
   classical
   unfold run
-  rw [WellFounded.fix_eq]
+  rw [WellFoundedLT.fix_eq]
   congr 1
 
 /-- Restriction of the run below `α`. -/
@@ -102,8 +102,8 @@ variable (hφ : ∀ α < θ, ∀ Γ' : 𝔹, ⊥ < Γ' → Γ' ≤ Γ → ∃ i,
 include hφ in
 theorem good (α : Ordinal.{v}) (hα : α < θ) : hP.Good hΓ φ α := by
   classical
-  induction α using Ordinal.induction with
-  | h α IH =>
+  induction α using WellFoundedLT.induction with
+  | ind α IH =>
   -- the position before `α`
   set p := hP.prev hΓ (hP.below hΓ φ α) α with hp
   have hpos : p ∈ D ∧ p ≤ Γ ∧ ∀ β < α, R (hP.run hΓ φ β) p := by

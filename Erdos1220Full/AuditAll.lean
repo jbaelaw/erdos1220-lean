@@ -47,7 +47,6 @@ import Erdos1220Full.CountablePreservation
 import Erdos1220Full.CoverForcing
 import Erdos1220Full.Distributive
 import Erdos1220Full.Faithful1220
-import Erdos1220Full.GCHFoundation
 import Erdos1220Full.GenericColouring
 import Erdos1220Full.GlueCAlg
 import Erdos1220Full.HistoryForcing
